@@ -1,17 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; 
+use App\Models\CauThu;
 
 class CauThuController extends Controller
 {
     // danh sách
     public function index()
     {
-        $danh_sach = DB::table('cauthu')->get();
-        return view('cauthu.list', compact('danh_sach'));
+        $data = CauThu::all();
+        return view('cauthu.list', compact('data'));
     }
     // thêm
     public function add()
@@ -21,48 +20,38 @@ class CauThuController extends Controller
 
     public function insert(Request $request)
     {
-        DB::table('cauthu')->insert([
-            'ten_cau_thu' => $request->ten_cau_thu,
-            'tuoi'        => $request->tuoi,
-            'quoc_tich'   => $request->quoc_tich,
-            'vi_tri'      => $request->vi_tri,
-            'luong'       => $request->luong,
-            'created_at'  => now(),
-            'updated_at'  => now()
-        ]);
+       $data = $request-> all();
+       CauThu::create($data);
 
-        $danh_sach = DB::table('cauthu')->get();
-        return view('cauthu.list', compact('danh_sach'));
+       return redirect('/cauthu/list');
     }
 
     //sửa
     public function edit($id)
     {
-        $cau_thu = DB::table('cauthu')->where('id', $id)->first();
+        $cau_thu = CauThu::find($id);
         return view('cauthu.edit', compact('cau_thu'));
+
     }
-    
+
     public function update(Request $request, $id)
     {
-        DB::table('cauthu')->where('id', $id)->update([
-            'ten_cau_thu' => $request->ten_cau_thu,
-            'tuoi'        => $request->tuoi,
-            'quoc_tich'   => $request->quoc_tich,
-            'vi_tri'      => $request->vi_tri,
-            'luong'       => $request->luong,
-            'updated_at'  => now()
-        ]);
+       $cauthu = CauThu::find($id);
+       $cauthu->ten_cau_thu = $request->ten_cau_thu;
+       $cauthu->tuoi        = $request->tuoi;
+       $cauthu->quoc_tich   = $request->quoc_tich;
+       $cauthu->vi_tri      = $request->vi_tri;
+       $cauthu->luong       = $request->luong;
+       $cauthu->save();
 
-       $danh_sach = DB::table('cauthu')->get();
-       return view('cauthu.list', compact('danh_sach'));
+       return redirect('/cauthu/list');
     }
 
     //xoá
     public function delete($id)
     {
-        DB::table('cauthu')->where('id', $id)->delete();
+       CauThu::destroy($id);
 
-        $danh_sach = DB::table('cauthu')->get();
-        return view('cauthu.list', compact('danh_sach'));
+        return redirect('/cauthu/list');
     }
 }

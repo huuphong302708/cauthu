@@ -18,7 +18,7 @@
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
-                @foreach ($danh_sach as $item)
+                @foreach ($data as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->ten_cau_thu }}</td>
