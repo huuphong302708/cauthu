@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CauThu;
+use App\Http\Requests\RequestName;
 
 class CauThuController extends Controller
 {
@@ -18,7 +19,7 @@ class CauThuController extends Controller
         return view('cauthu.add');
     }
 
-    public function insert(Request $request)
+    public function insert(RequestName $request)
     {
        $data = $request-> all();
        CauThu::create($data);
@@ -34,7 +35,7 @@ class CauThuController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(RequestName $request, $id)
     {
        $cauthu = CauThu::find($id);
        $cauthu->ten_cau_thu = $request->ten_cau_thu;

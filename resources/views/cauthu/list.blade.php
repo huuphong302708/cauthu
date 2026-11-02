@@ -9,7 +9,7 @@
 
             <table border="1">
                 <tr>
-                    <th>ID</th>
+                    <th>STT</th>
                     <th>Ten cau thu</th>
                     <th>Tuoi</th>
                     <th>Quoc tich</th>
@@ -20,7 +20,7 @@
                 </tr>
                 @foreach ($data as $item)
                 <tr>
-                    <td>{{ $item->id }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->ten_cau_thu }}</td>
                     <td>{{ $item->tuoi }}</td>
                     <td>{{ $item->quoc_tich }}</td>
